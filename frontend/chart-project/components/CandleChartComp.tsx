@@ -1,4 +1,3 @@
-// components/CandlestickChart.tsx
 'use client'
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
@@ -7,9 +6,11 @@ import CandlestickDataPoint from '@/data/candlestickDataPoint';
 
 interface CandlestickChartProps {
   candlestickData: CandlestickChartData;
+  width?: number;
+  height?: number;
 }
 
-const CandlestickChart: React.FC<CandlestickChartProps> = ({ candlestickData }) => {
+const CandlestickChart: React.FC<CandlestickChartProps> = ({ candlestickData, width = 500, height = 400 }) => {
   const option = {
     tooltip: {
       trigger: 'axis',
@@ -74,9 +75,15 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ candlestickData }) 
   };
 
   return (
-    <div className="w-96 pt-4 h-96 bg-gray-800 text-white border-none text-center rounded-lg ">
-      <h1 className="text-white font-bold mb-4">Candlestick Chart</h1>
-      <ReactECharts option={option} style={{ height: '100%', width: '100%' }} />
+    <div
+      className="bg-gray-800 text-white border-none text-center rounded-lg"
+      style={{ width, height }}
+    >
+      <h1 className="text-white font-bold my-4">Candlestick Chart</h1>
+      <ReactECharts
+        option={option}
+        style={{ width: '100%', height: 'calc(100% - 2.5rem)' }} // Adjust height to account for the title and padding
+      />
     </div>
   );
 };

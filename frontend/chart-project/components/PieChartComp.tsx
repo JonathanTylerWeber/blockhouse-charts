@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { Cell, Pie, PieChart } from "recharts"
 
@@ -18,6 +18,8 @@ import PieChartData from "@/data/pieChartData";
 
 interface PieChartProps {
   pieData: PieChartData;
+  width?: number;
+  height?: number;
 }
 
 const chartConfig: ChartConfig = {
@@ -39,7 +41,7 @@ const chartConfig: ChartConfig = {
   },
 } satisfies ChartConfig
 
-const PieChartComp: React.FC<PieChartProps> = ({ pieData }) => {
+const PieChartComp: React.FC<PieChartProps> = ({ pieData, width = 500, height = 400 }) => {
 
   const transformedData = pieData.labels.map((label, index) => {
     const color = chartConfig[label.toLowerCase()]?.color || "var(--color-desktop)";
@@ -51,16 +53,21 @@ const PieChartComp: React.FC<PieChartProps> = ({ pieData }) => {
   });
 
   return (
-    <Card className="flex flex-col w-96  h-96 bg-gray-800 text-white border-none text-center ">
+    <Card className="flex flex-col bg-gray-800 text-white border-none text-center" style={{ width, height }}>
       <CardHeader className="items-center pb-0">
         <CardTitle><b>Pie Chart</b></CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 pb-0 flex items-center min-h-[250px]">
+      <CardContent className="flex-1 pb-0 flex items-center justify-center">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square min-h-[250px]"
+          className="relative flex-1"
+          style={{ width: '100%', height: '100%' }}
         >
-          <PieChart>
+          <PieChart
+            width={width}
+            height={height}
+            className="absolute top-0 left-0 w-full h-full"
+          >
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent className="bg-black" />}
@@ -71,12 +78,12 @@ const PieChartComp: React.FC<PieChartProps> = ({ pieData }) => {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={100}
+              outerRadius="80%"
             >
               {transformedData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
-            </ Pie>
+            </Pie>
           </PieChart>
         </ChartContainer>
       </CardContent>

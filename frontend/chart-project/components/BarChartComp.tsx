@@ -1,7 +1,6 @@
-"use client"
+'use client'
 
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
-
 import {
   Card,
   CardContent,
@@ -14,12 +13,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-
 import BarChartData from "@/data/barChartData"
-
 
 interface BarChartProps {
   barData: BarChartData;
+  width?: number;
+  height?: number;
 }
 
 const chartConfig = {
@@ -29,7 +28,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const BarChartComp: React.FC<BarChartProps> = ({ barData }) => {
+const BarChartComp: React.FC<BarChartProps> = ({ barData, width = 500, height = 400 }) => {
 
   const transformedData = barData.labels.map((label, index) => ({
     labels: label,
@@ -37,13 +36,24 @@ const BarChartComp: React.FC<BarChartProps> = ({ barData }) => {
   }));
 
   return (
-    <Card className="w-96 h-96 bg-gray-800 text-white border-none text-center">
+    <Card
+      className="bg-gray-800 text-white border-none text-center rounded-lg "
+      style={{ width, height }}
+    >
       <CardHeader>
-        <CardTitle><b>Bar Chart</b></CardTitle>
+        <CardTitle className="text-center"><b>Bar Chart</b></CardTitle>
       </CardHeader>
-      <CardContent className=" mr-3 md:mr-10 p-2 pb-6 pt-10">
-        <ChartContainer config={chartConfig} >
-          <BarChart accessibilityLayer data={transformedData}>
+      <CardContent className="md:p-10 p-0 flex-1 sm:mt-0 mt-16">
+        <ChartContainer
+          config={chartConfig}
+          className="relative"
+        >
+          <BarChart
+            accessibilityLayer
+            data={transformedData}
+            margin={{ top: 5, right: 25, bottom: 5, left: 0 }}
+
+          >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="labels"
