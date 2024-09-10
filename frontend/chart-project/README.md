@@ -1,5 +1,9 @@
 # Chart Project
 
+## Jonathan Weber
+
+# jonathantweber@gmail.com
+
 ## Overview
 
 This project is a web application that displays various types of charts using data fetched from a Django backend. The frontend is built with Next.js, TypeScript, Redux, and styled with Tailwind CSS and Shadcn. The application uses Recharts and ECharts to visualize different types of financial data.
