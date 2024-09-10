@@ -6,6 +6,9 @@ import LineChartData from "@/data/lineChartData";
 import PieChartData from "@/data/pieChartData";
 
 import LineChartComp from "@/components/LineChartComp";
+import BarChartComp from "@/components/BarChartComp";
+import PieChartComp from "@/components/PieChartComp";
+import CandleChartComp from "@/components/CandleChartComp";
 
 async function fetchChartData(): Promise<ChartData> {
   try {
@@ -47,7 +50,9 @@ async function fetchChartData(): Promise<ChartData> {
 export default async function Page() {
 
   const chartData: ChartData = await fetchChartData();
-  const candlestickData: CandlestickDataPoint[] = chartData.candlestick.data;
+  const candlestickData: CandlestickChartData = {
+    data: chartData.candlestick.data
+  };
   const lineData: LineChartData = chartData.line;
   const barData: BarChartData = chartData.bar;
   const pieData: PieChartData = chartData.pie;
@@ -59,7 +64,20 @@ export default async function Page() {
 
   return (
     <>
-      <LineChartComp lineData={lineData} />
+      <div className="m-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="flex justify-center items-center mb-10">
+          <CandleChartComp candlestickData={candlestickData} />
+        </div>
+        <div className="flex justify-center items-center mb-10">
+          <LineChartComp lineData={lineData} />
+        </div>
+        <div className="flex justify-center items-center mb-10">
+          <BarChartComp barData={barData} />
+        </div>
+        <div className="flex justify-center items-center mb-10">
+          <PieChartComp pieData={pieData} />
+        </div>
+      </div>
     </>
   )
 }
