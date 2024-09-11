@@ -5,13 +5,13 @@ FROM node:18
 WORKDIR /app
 
 # Copy package.json and yarn.lock
-COPY chart-project/package.json chart-project/yarn.lock ./
+COPY package.json yarn.lock ./
 
 # Install dependencies
 RUN yarn install
 
 # Copy the rest of the application code
-COPY chart-project ./
+COPY . /app/
 
 # Build the Next.js application
 RUN yarn build

@@ -1,14 +1,12 @@
-version: '3.9'
-
 services:
   backend:
     build:
-      context: ./backend
+      context: ./backend/chart_project
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
+      - ./backend/chart_project:/app
     environment:
       - DEBUG=True
     command: [ "gunicorn", "--bind", "0.0.0.0:8000", "chart_project.wsgi:application" ]
@@ -19,7 +17,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend/chart-project:/app
+    depends_on:
+      - backend
+    # volumes:
+    #   - ./frontend/chart-project:/app
     environment:
       - NODE_ENV=development
