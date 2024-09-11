@@ -2,7 +2,6 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import CandlestickChartData from '@/data/candlestickChartData';
-import CandlestickDataPoint from '@/data/candlestickDataPoint';
 
 interface CandlestickChartProps {
   candlestickData: CandlestickChartData;
@@ -16,6 +15,24 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ candlestickData, wi
       trigger: 'axis',
       axisPointer: {
         type: 'cross',
+        crossStyle: {
+          color: '#ffffff',
+        },
+        label: {
+          backgroundColor: 'rgba(0, 0, 0, 1)',
+          color: '#fff',
+          borderColor: '#666',
+          borderWidth: 1,
+        },
+      },
+      backgroundColor: 'rgba(0, 0, 0, 1)',
+      borderColor: '#777',
+      borderWidth: 1,
+      padding: 10,
+      textStyle: {
+        color: '#ffffff',
+        fontSize: 12,
+        fontFamily: 'Arial, sans-serif',
       },
     },
     grid: {
@@ -34,7 +51,7 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ candlestickData, wi
       },
       axisLine: {
         lineStyle: {
-          color: '#ffffff',
+          color: '#666666',
         },
       },
     },
@@ -45,12 +62,12 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ candlestickData, wi
       },
       axisLine: {
         lineStyle: {
-          color: '#ffffff',
+          color: '#666666',
         },
       },
       splitLine: {
         lineStyle: {
-          color: '#ffffff',
+          color: '#666666',
         },
       },
     },
